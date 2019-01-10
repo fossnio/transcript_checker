@@ -52,10 +52,11 @@ class TranscriptWidget(QWidget):
 
     @Slot()
     def load_transcript_file(self):
-        self.progress_bar.setRange(0, 0)
         file_name, _ = QFileDialog.getOpenFileName(self, '讀取成績單檔案', str(pathlib.Path.home()))
-        self.queue.put([file_name, int(self.lineedit1.text()), int(self.lineedit2.text())])
-        self.progress_bar_thread.start()
+        if file_name:
+            self.progress_bar.setRange(0, 0)
+            self.queue.put([file_name, int(self.lineedit1.text()), int(self.lineedit2.text())])
+            self.progress_bar_thread.start()
     
     @Slot()
     def show_result(self):
