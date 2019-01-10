@@ -1,3 +1,8 @@
+執行畫面
+========
+
+.. image:: screenshot.png
+
 環境需求
 ========
 
@@ -17,3 +22,4 @@
 
     cd transcript_checker
     python transcript.py
+
