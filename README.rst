@@ -39,3 +39,8 @@ Windows 環境注意事項
     cd transcript_checker
     python transcript.py
 
+
+授權
+====
+
+MIT License，詳見 LICENSE 檔案。
