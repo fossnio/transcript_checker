@@ -33,7 +33,7 @@ def check_transcript(source_file, present_default_day=100, grade_boundry=70):
             output.append('{stu_name} 有未填的學業等第'.format(stu_name=stu_name))
         
         # 檢查行為表現情形有無空白
-        m = re.search(r'日常行為表現、團體活動表現、公共服務、校內外特殊表現</th>.+?<td align="left" valign="top"> &nbsp;</td>', student_html, re.DOTALL)
+        m = re.search(r'日常行為表現、團體活動表現、公共服務、校內外特殊表現</th>\s+<td align="left" valign="top"> &nbsp;</td>', student_html, re.DOTALL)
         if m:
             output.append('{stu_name} 有未填的行為表現情形'.format(stu_name=stu_name))
 
