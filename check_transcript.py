@@ -1,5 +1,6 @@
 import sys
 import re
+from decimal import Decimal
 
 
 def check_transcript(source_file, present_default_day=100, grade_boundry=70):
@@ -7,6 +8,7 @@ def check_transcript(source_file, present_default_day=100, grade_boundry=70):
     grade_boundry: 最低的正常分數
     '''
     output = []
+    grade_boundry = Decimal(grade_boundry)
 
     with open(source_file) as fp:
         transcript_content = fp.read()
@@ -59,10 +61,10 @@ def check_transcript(source_file, present_default_day=100, grade_boundry=70):
             present_ok_status[class_name] = True
         
         # 檢查學生的各科分數是否低於門檻
-        m = re.findall(r'<TH width="15%" style="border:1px solid ; border-left:2px solid" align="center" valign="top" scope=row>(.+?)</TH>.+?<TD width="6%" style="border:1px solid ; border-right:2px solid" align="center" align=center valign="middle">(\d+)</TD>', student_html, re.DOTALL)
+        m = re.findall(r'<TH width="15%" style="border:1px solid ; border-left:2px solid" align="center" valign="top" scope=row>(.+?)</TH>.+?<TD width="6%" style="border:1px solid ; border-right:2px solid" align="center" align=center valign="middle">([^<]+)</TD>', student_html, re.DOTALL)
         if m and grade_ok:
             for each_subject in m:
-                if int(each_subject[1]) < grade_boundry:
+                if Decimal(each_subject[1]) < grade_boundry:
                     output.append('{stu_name} 的 {subject} 分數 {grade} 低於 70'.format(stu_name=stu_name, subject=each_subject[0], grade=each_subject[1]))
     
     # 檢查實際出席有問題的班級
