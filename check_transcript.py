@@ -56,6 +56,7 @@ def check_transcript(source_file, present_default_day=100, grade_boundry=70):
         except ValueError:
             # 一天請假算 8 節，若日數出現小數點，代表老師搞錯，可能一天算成 7 節之類
             output.append('{stu_name} 實際出席日數 {present_day} 異常，應為整數'.format(stu_name=stu_name, present_day=m.group(1)))
+            present_ok_status[class_name] = True
         
         # 檢查學生的各科分數是否低於門檻
         m = re.findall(r'<TH width="15%" style="border:1px solid ; border-left:2px solid" align="center" valign="top" scope=row>(.+?)</TH>.+?<TD width="6%" style="border:1px solid ; border-right:2px solid" align="center" align=center valign="middle">(\d+)</TD>', student_html, re.DOTALL)
